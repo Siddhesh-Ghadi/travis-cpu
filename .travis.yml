@@ -3,7 +3,7 @@ arch: ppc64le
 service: docker
 before_script:
   - |
-    if [[ "TRAVIS_CPU_ARCH" = "ppc64le" ]]
+    if [[ "TRAVIS_CPU_ARCH" == "ppc64le" ]]
     then
       # fix cpu count in ppc64le to avoid OOM failure
       cat /proc/stat > /tmp/stat
@@ -16,4 +16,5 @@ script:
   - free -h
   - df -h
   - cat /proc/stat
+  - nrpoc
   - docker run -t centos:7 bash -c 'cat /proc/stat && nproc'
