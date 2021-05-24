@@ -3,7 +3,8 @@ arch: ppc64le
 script:
   - free -h
   - df -h
-  - cat /proc/cpuinfo
+  - cat /proc/stat
   - |
-    cat /proc/cpuinfo > /tmp/my-cpuinfo
-    sudo mount --bind /tmp/my-cpuinfo /proc/cpuinfo
+    cat /proc/stat > /tmp/stat
+    cat /tmp/stat
+    #sudo mount --bind /tmp/my-cpuinfo /proc/cpuinfo
