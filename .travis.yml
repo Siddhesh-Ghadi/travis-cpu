@@ -1,10 +1,19 @@
 dist: focal
 arch: ppc64le
+service: docker
+before_script:
+  - |
+    if [[ "TRAVIS_CPU_ARCH" = "ppc64le" ]]
+    then
+      # fix cpu count in ppc64le to avoid OOM failure
+      cat /proc/stat > /tmp/stat
+      sed -i '/^cpu[2-9]/d' /tmp/stat
+      sed -i '/^cpu[0-9][0-9]/d' /tmp/stat
+      sudo mount --bind /tmp/stat /proc/stat
+    fi
+
 script:
   - free -h
   - df -h
   - cat /proc/stat
-  - |
-    cat /proc/stat > /tmp/stat
-    cat /tmp/stat
-    #sudo mount --bind /tmp/my-cpuinfo /proc/cpuinfo
+  - docker run -t centos:7 bash -c 'cat /proc/stat && nproc'
