@@ -10,11 +10,12 @@ before_script:
       sed -i '/^cpu[2-9]/d' /tmp/stat
       sed -i '/^cpu[0-9][0-9]/d' /tmp/stat
       sudo mount --bind /tmp/stat /proc/stat
+      sudo systemctl restart docker
     fi
 
 script:
   - free -h
   - df -h
   - cat /proc/stat
-  - nrpoc
+  - nproc
   - docker run -t centos:7 bash -c 'cat /proc/stat && nproc'
