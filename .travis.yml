@@ -6,6 +6,6 @@ arch:
   - arm64
   
 script:
-  - nrpoc
+  - nproc
   - lscpu
   - cat /proc/stat
